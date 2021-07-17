@@ -11,9 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pets">
         <activity android:name=".activity.EditorActivity"
-            android:label="@string/editor_activity_title_new_pet"
+            android:label="@string/edit_pet"
             android:theme="@style/EditorTheme"
             android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <activity android:name=".activity.NewPetActivity"
+            android:label="@string/editor_activity_title_new_pet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />

@@ -15,4 +15,5 @@
     <string name="gender_unknown">Unknown</string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
+    <string name="edit_pet">Edit A Pet</string>
 </resources>

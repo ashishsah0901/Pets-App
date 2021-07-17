@@ -18,21 +18,15 @@ import com.example.pets.model.Pet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EditorActivity : AppCompatActivity() {
+class NewPetActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditorBinding
     private var mGender = 0
     private val viewModel: PetsViewModel by viewModels()
-    private lateinit var pet: Pet
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditorBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpSpinner()
-        pet = intent.getSerializableExtra("Pets") as Pet
-        binding.editPetName.setText(pet.name)
-        binding.editPetBreed.setText(pet.breed)
-        binding.spinnerGender.setSelection(pet.gender)
-        binding.editPetWeight.setText(pet.weight.toString())
     }
 
     private fun setUpSpinner(){
@@ -73,7 +67,6 @@ class EditorActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_delete -> {
-                viewModel.deletePet(pet)
                 finish()
                 return true
             }
@@ -88,15 +81,13 @@ class EditorActivity : AppCompatActivity() {
     private fun saveToDatabase(): Boolean {
         val name = binding.editPetName.text.toString().trim()
         val breed = binding.editPetBreed.text.toString().trim()
+        val gender = mGender
         val weight = binding.editPetWeight.text.toString().toInt()
         return if(name=="" || breed=="" || weight<=0){
             Toast.makeText(this,"Please enter all the fields!",Toast.LENGTH_SHORT).show()
             false
         }else {
-            pet.name = name
-            pet.breed = breed
-            pet.weight = weight
-            pet.gender = mGender
+            val pet = Pet(name, breed, gender, weight)
             viewModel.insertPet(pet)
             true
         }
